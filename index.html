@@ -65,6 +65,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
+/* ══ PERF: content-visibility for off-screen sections ══ */
+.diferenciais,.depoimentos,.cta-final{content-visibility:auto;contain-intrinsic-size:0 600px}
 /* ══════════════════════════════════════════════
    TOKENS
 ══════════════════════════════════════════════ */
@@ -273,6 +275,7 @@ nav{
   box-shadow:0 8px 32px rgba(37,211,102,0.45);
   transition:transform 0.22s,box-shadow 0.22s;
   white-space:nowrap;
+  will-change:transform;
 }
 .btn-wpp:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 44px rgba(37,211,102,0.65)}
 .btn-outline{
@@ -395,51 +398,110 @@ section{padding:96px 5%}
 .srv-card p{font-size:0.88rem;color:var(--muted);line-height:1.7}
 
 /* ══════════════════════════════════════════════
-   ANTES E DEPOIS
+   ANTES E DEPOIS — TABBED GALLERY
 ══════════════════════════════════════════════ */
 .resultados{background:var(--cream)}
-.ad-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;margin-top:56px;
+
+/* Tab switcher */
+.ad-tabs{
+  display:flex;gap:8px;justify-content:center;
+  margin-top:44px;margin-bottom:36px;
+  background:rgba(13,59,20,0.07);
+  border:1px solid rgba(46,160,67,0.15);
+  border-radius:50px;padding:5px;
+  width:fit-content;margin-left:auto;margin-right:auto;
 }
+.ad-tab{
+  padding:10px 28px;border-radius:50px;
+  font-weight:700;font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;
+  border:none;cursor:pointer;background:transparent;
+  color:var(--muted);transition:all 0.25s ease;
+  display:flex;align-items:center;gap:8px;
+}
+.ad-tab svg{width:15px;height:15px;fill:currentColor;transition:fill 0.25s}
+.ad-tab.active{
+  background:var(--forest);color:var(--spark);
+  box-shadow:0 4px 16px rgba(13,59,20,0.25);
+}
+.ad-tab:not(.active):hover{color:var(--forest);background:rgba(13,59,20,0.06)}
+
+/* Tab panels */
+.ad-panel{display:none}
+.ad-panel.active{display:grid}
+
+.ad-grid{
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+/* Image cards */
 .ad-card{
   border-radius:var(--rr);overflow:hidden;
-  box-shadow:0 4px 32px rgba(13,59,20,0.1);
+  box-shadow:0 4px 24px rgba(13,59,20,0.1);
   background:var(--forest);
   transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),box-shadow 0.3s;
   display:flex;flex-direction:column;
+  aspect-ratio:4/3;
+  position:relative;
 }
-.ad-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 60px rgba(13,59,20,0.2)}
+.ad-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 20px 50px rgba(13,59,20,0.2)}
+
+/* Image slot — filled */
 .ad-img-wrap{
   position:relative;overflow:hidden;
-  flex:1;
+  flex:1;height:100%;
 }
 .ad-img-wrap img{
-  width:100%;
-  height:280px;
+  width:100%;height:100%;
   object-fit:cover;object-position:center;
   display:block;
-  transition:transform 0.6s ease;
+  transition:transform 0.55s ease;
 }
 .ad-card:hover .ad-img-wrap img{transform:scale(1.04)}
+
+/* Empty placeholder slot */
+.ad-placeholder{
+  flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:linear-gradient(135deg,rgba(13,59,20,0.9),rgba(21,92,30,0.7));
+  border:2px dashed rgba(184,244,74,0.25);
+  border-radius:calc(var(--rr) - 1px);
+  padding:24px;text-align:center;
+  min-height:200px;
+}
+.ad-placeholder-ico{
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(184,244,74,0.1);border:1px solid rgba(184,244,74,0.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.ad-placeholder-ico svg{width:24px;height:24px;fill:rgba(184,244,74,0.5)}
+.ad-placeholder p{
+  color:rgba(255,255,255,0.45);font-size:0.75rem;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;line-height:1.5;
+}
+.ad-placeholder code{
+  display:block;margin-top:6px;
+  color:rgba(184,244,74,0.4);font-size:0.68rem;font-family:monospace;
+  word-break:break-all;padding:0 8px;
+}
+
 .ad-badge{
-  position:absolute;top:12px;left:12px;
-  background:rgba(11,26,13,0.8);backdrop-filter:blur(8px);
+  position:absolute;top:12px;left:12px;z-index:2;
+  background:rgba(11,26,13,0.85);backdrop-filter:blur(8px);
   border:1px solid rgba(184,244,74,0.3);
   border-radius:50px;padding:5px 12px;
-  font-size:0.7rem;font-weight:700;letter-spacing:0.1em;
+  font-size:0.68rem;font-weight:700;letter-spacing:0.1em;
   text-transform:uppercase;color:var(--spark);
 }
 .ad-label{
   background:linear-gradient(90deg,rgba(11,26,13,0.95),rgba(21,92,30,0.9));
-  padding:14px 20px;
-  display:flex;align-items:center;gap:10px;
+  padding:12px 18px;
+  display:flex;align-items:center;gap:9px;
   border-top:1px solid rgba(184,244,74,0.12);
   flex-shrink:0;
 }
-.ad-label svg{width:16px;height:16px;fill:var(--spark);flex-shrink:0}
-.ad-label span{color:var(--white);font-weight:600;font-size:0.8rem;letter-spacing:0.04em}
+.ad-label svg{width:15px;height:15px;fill:var(--spark);flex-shrink:0}
+.ad-label span{color:var(--white);font-weight:600;font-size:0.78rem;letter-spacing:0.04em}
 
 /* ══════════════════════════════════════════════
    DIFERENCIAIS
@@ -673,7 +735,8 @@ footer a:hover{color:var(--spark)}
   .srv-grid{grid-template-columns:1fr 1fr;gap:14px}
   .srv-card{padding:24px 18px}
   .ad-grid{grid-template-columns:1fr}
-  .ad-img-wrap img{height:240px}
+  .ad-tabs{gap:4px;padding:4px}
+  .ad-tab{padding:9px 18px;font-size:0.78rem}
   .dif-grid{grid-template-columns:1fr 1fr}
   .dep-grid{grid-template-columns:1fr}
   .hero-stats{gap:24px}
@@ -692,7 +755,6 @@ footer a:hover{color:var(--spark)}
 @media (max-width:900px) and (min-width:741px){
   .dif-grid{grid-template-columns:repeat(2,1fr)}
   .ad-grid{grid-template-columns:1fr 1fr}
-  .ad-img-wrap img{height:200px}
 }
 </style>
 </head>
@@ -897,39 +959,100 @@ footer a:hover{color:var(--spark)}
     <h2 class="sec-title">Antes &amp; Depois</h2>
     <p class="sec-sub">Veja a transformação real dos nossos clientes. Resultados que falam por si.</p>
   </div>
-  <div class="ad-grid">
+
+  <!-- Tab switcher -->
+  <div class="ad-tabs reveal" style="transition-delay:0.08s">
+    <button class="ad-tab active" data-tab="tapetes" onclick="switchTab('tapetes')">
+      <svg viewBox="0 0 24 24"><use href="#ico-tapete"/></svg>
+      Tapetes
+    </button>
+    <button class="ad-tab" data-tab="estofados" onclick="switchTab('estofados')">
+      <svg viewBox="0 0 24 24"><use href="#ico-sofa"/></svg>
+      Estofados
+    </button>
+  </div>
+
+  <!-- TAPETES panel -->
+  <div class="ad-panel active ad-grid" id="tab-tapetes">
+    <!-- Foto 1 — cole o link do Cloudflare abaixo em src="" -->
     <div class="ad-card reveal" style="transition-delay:0.05s">
-      <div class="ad-img-wrap">
-        <img src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1779806431/IMG_7437_jp720m.jpg" alt="Antes e depois — cadeiras estampadas" loading="lazy">
-        <div class="ad-badge">Antes &amp; Depois</div>
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-ico"><svg viewBox="0 0 24 24"><use href="#ico-tapete"/></svg></div>
+        <p>Tapete — Foto 1<code>Cole o link do Cloudflare no src=""</code></p>
       </div>
-      <div class="ad-label">
-        <svg><use href="#ico-cadeira"/></svg>
-        <span>Cadeiras de jantar — higienização completa</span>
-      </div>
+      <!-- <div class="ad-img-wrap"><img src="SEU_LINK_AQUI" alt="Tapete antes e depois 1" loading="lazy"><div class="ad-badge">Antes &amp; Depois</div></div>
+      <div class="ad-label"><svg><use href="#ico-tapete"/></svg><span>Tapete — higienização completa</span></div> -->
     </div>
+    <!-- Foto 2 -->
     <div class="ad-card reveal" style="transition-delay:0.1s">
-      <div class="ad-img-wrap">
-        <img src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1779806431/IMG_7436_vccvv6.jpg" alt="Antes e depois — sofá cinza" loading="lazy">
-        <div class="ad-badge">Antes &amp; Depois</div>
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-ico"><svg viewBox="0 0 24 24"><use href="#ico-tapete"/></svg></div>
+        <p>Tapete — Foto 2<code>Cole o link do Cloudflare no src=""</code></p>
       </div>
-      <div class="ad-label">
-        <svg><use href="#ico-sofa"/></svg>
-        <span>Sofá retrátil — remoção de manchas</span>
-      </div>
+      <!-- <div class="ad-img-wrap"><img src="SEU_LINK_AQUI" alt="Tapete antes e depois 2" loading="lazy"><div class="ad-badge">Antes &amp; Depois</div></div>
+      <div class="ad-label"><svg><use href="#ico-tapete"/></svg><span>Tapete — remoção de manchas</span></div> -->
     </div>
+    <!-- Foto 3 -->
     <div class="ad-card reveal" style="transition-delay:0.15s">
-      <div class="ad-img-wrap">
-        <img src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1779806431/IMG_7434_na1emr.jpg" alt="Antes e depois — cadeiras brancas" loading="lazy">
-        <div class="ad-badge">Antes &amp; Depois</div>
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-ico"><svg viewBox="0 0 24 24"><use href="#ico-tapete"/></svg></div>
+        <p>Tapete — Foto 3<code>Cole o link do Cloudflare no src=""</code></p>
       </div>
-      <div class="ad-label">
-        <svg><use href="#ico-cadeira"/></svg>
-        <span>Cadeiras brancas — limpeza profunda</span>
+      <!-- <div class="ad-img-wrap"><img src="SEU_LINK_AQUI" alt="Tapete antes e depois 3" loading="lazy"><div class="ad-badge">Antes &amp; Depois</div></div>
+      <div class="ad-label"><svg><use href="#ico-tapete"/></svg><span>Tapete — lavagem profissional</span></div> -->
+    </div>
+    <!-- Foto 4 -->
+    <div class="ad-card reveal" style="transition-delay:0.2s">
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-ico"><svg viewBox="0 0 24 24"><use href="#ico-tapete"/></svg></div>
+        <p>Tapete — Foto 4<code>Cole o link do Cloudflare no src=""</code></p>
       </div>
+      <!-- <div class="ad-img-wrap"><img src="SEU_LINK_AQUI" alt="Tapete antes e depois 4" loading="lazy"><div class="ad-badge">Antes &amp; Depois</div></div>
+      <div class="ad-label"><svg><use href="#ico-tapete"/></svg><span>Tapete — resultado garantido</span></div> -->
     </div>
   </div>
-  <div style="text-align:center;margin-top:48px" class="reveal" style="transition-delay:0.2s">
+
+  <!-- ESTOFADOS panel -->
+  <div class="ad-panel ad-grid" id="tab-estofados">
+    <!-- Foto 1 -->
+    <div class="ad-card reveal" style="transition-delay:0.05s">
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-ico"><svg viewBox="0 0 24 24"><use href="#ico-sofa"/></svg></div>
+        <p>Estofado — Foto 1<code>Cole o link do Cloudflare no src=""</code></p>
+      </div>
+      <!-- <div class="ad-img-wrap"><img src="SEU_LINK_AQUI" alt="Estofado antes e depois 1" loading="lazy"><div class="ad-badge">Antes &amp; Depois</div></div>
+      <div class="ad-label"><svg><use href="#ico-sofa"/></svg><span>Sofá — higienização profunda</span></div> -->
+    </div>
+    <!-- Foto 2 -->
+    <div class="ad-card reveal" style="transition-delay:0.1s">
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-ico"><svg viewBox="0 0 24 24"><use href="#ico-sofa"/></svg></div>
+        <p>Estofado — Foto 2<code>Cole o link do Cloudflare no src=""</code></p>
+      </div>
+      <!-- <div class="ad-img-wrap"><img src="SEU_LINK_AQUI" alt="Estofado antes e depois 2" loading="lazy"><div class="ad-badge">Antes &amp; Depois</div></div>
+      <div class="ad-label"><svg><use href="#ico-sofa"/></svg><span>Sofá — remoção de manchas</span></div> -->
+    </div>
+    <!-- Foto 3 -->
+    <div class="ad-card reveal" style="transition-delay:0.15s">
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-ico"><svg viewBox="0 0 24 24"><use href="#ico-cadeira"/></svg></div>
+        <p>Estofado — Foto 3<code>Cole o link do Cloudflare no src=""</code></p>
+      </div>
+      <!-- <div class="ad-img-wrap"><img src="SEU_LINK_AQUI" alt="Estofado antes e depois 3" loading="lazy"><div class="ad-badge">Antes &amp; Depois</div></div>
+      <div class="ad-label"><svg><use href="#ico-cadeira"/></svg><span>Cadeiras — limpeza profunda</span></div> -->
+    </div>
+    <!-- Foto 4 -->
+    <div class="ad-card reveal" style="transition-delay:0.2s">
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-ico"><svg viewBox="0 0 24 24"><use href="#ico-cadeira"/></svg></div>
+        <p>Estofado — Foto 4<code>Cole o link do Cloudflare no src=""</code></p>
+      </div>
+      <!-- <div class="ad-img-wrap"><img src="SEU_LINK_AQUI" alt="Estofado antes e depois 4" loading="lazy"><div class="ad-badge">Antes &amp; Depois</div></div>
+      <div class="ad-label"><svg><use href="#ico-cadeira"/></svg><span>Cadeiras — resultado surpreendente</span></div> -->
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:48px" class="reveal">
     <a href="https://wa.me/5516992204232?text=Quero%20ver%20mais%20resultados%20e%20fazer%20um%20orçamento!" class="btn-wpp" target="_blank" rel="noopener">
       <svg width="20" height="20"><use href="#ico-wpp"/></svg>
       Quero esse resultado!
@@ -1055,6 +1178,16 @@ footer a:hover{color:var(--spark)}
 </a>
 
 <script>
+// ── Tab switcher ──
+function switchTab(tab) {
+  document.querySelectorAll('.ad-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ad-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+  // Re-trigger reveal for newly visible cards
+  document.querySelectorAll('#tab-' + tab + ' .reveal:not(.visible)').forEach(el => io.observe(el));
+}
+
 // ── Mobile menu ──
 const hamBtn = document.getElementById('ham-btn');
 const mobMenu = document.getElementById('mob-menu');
