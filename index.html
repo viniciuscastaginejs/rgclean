@@ -396,9 +396,6 @@ section{padding:96px 5%}
 .srv-card h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:8px}
 .srv-card p{font-size:0.88rem;color:var(--muted);line-height:1.7}
 
-/* ══════════════════════════════════════════════
-   ANTES E DEPOIS — TABBED GALLERY
-══════════════════════════════════════════════ */
 .resultados{background:var(--cream)}
 
 /* Tab switcher */
@@ -903,7 +900,7 @@ footer a:hover{color:var(--spark)}
 <section class="servicos" id="servicos">
   <div class="center reveal">
     <span class="sec-eyebrow">O que fazemos</span>
-    <h2 class="sec-title">Nossos Serviços</h2>
+    <h2 class="sec-title">Nossos Trabalhos</h2>
     <p class="sec-sub">Tratamento completo para seus estofados com produtos profissionais e técnicos especializados.</p>
   </div>
   <div class="srv-grid">
@@ -938,19 +935,18 @@ footer a:hover{color:var(--spark)}
 <section class="resultados" id="resultados">
   <div class="center reveal">
     <span class="sec-eyebrow">Resultados reais</span>
-    <h2 class="sec-title">Antes &amp; Depois</h2>
-    <p class="sec-sub">Veja a transformação real dos nossos clientes. Resultados que falam por si.</p>
+    <p class="sec-sub">Veja a transformação real dos clientes. Resultados que falam por si.</p>
   </div>
 
   <!-- Tab switcher -->
   <div class="ad-tabs reveal" style="transition-delay:0.08s">
+           <button class="ad-tab" data-tab="estofados" onclick="switchTab('estofados')">
+      <svg viewBox="0 0 24 24"><use href="#ico-sofa"/></svg>
+      Estofados
+    </button>
     <button class="ad-tab active" data-tab="tapetes" onclick="switchTab('tapetes')">
       <svg viewBox="0 0 24 24"><use href="#ico-tapete"/></svg>
       Tapetes
-    </button>
-    <button class="ad-tab" data-tab="estofados" onclick="switchTab('estofados')">
-      <svg viewBox="0 0 24 24"><use href="#ico-sofa"/></svg>
-      Estofados
     </button>
   </div>
 
@@ -959,7 +955,6 @@ footer a:hover{color:var(--spark)}
     <div class="ad-card reveal" style="transition-delay:0.05s">
       <div class="ad-img-wrap">
         <img src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1780504806/WhatsApp_Image_2026-06-02_at_12.41.52_2_igcm97.jpg" alt="Tapete antes e depois 1" loading="lazy">
-        <div class="ad-badge">Antes &amp; Depois</div>
       </div>
       <div class="ad-label"><svg><use href="#ico-tapete"/></svg><span>Tapete — higienização completa</span></div>
     </div>
