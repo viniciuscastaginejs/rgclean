@@ -151,7 +151,7 @@ nav{
 .nav-mobile{display:none}
 
 /* ══════════════════════════════════════════════
-   HERO
+   HERO SLIDESHOW
 ══════════════════════════════════════════════ */
 .hero{
   min-height:100svh;
@@ -161,14 +161,31 @@ nav{
   position:relative;overflow:hidden;text-align:center;
 }
 
-/* Mesh gradient background */
-.hero-bg{
-  position:absolute;inset:0;pointer-events:none;
+/* Slideshow images */
+.hero-slides{
+  position:absolute;inset:0;z-index:0;
+}
+.hero-slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;
+  transition:opacity 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+.hero-slide.active{opacity:1}
+
+/* Dark+green overlay on top of images */
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(46,160,67,0.35) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 90% 100%, rgba(21,92,30,0.5) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(13,59,20,0.8) 0%, transparent 100%),
-    linear-gradient(180deg, #061209 0%, #0d3b14 40%, #155c1e 100%);
+    linear-gradient(180deg, rgba(6,18,9,0.72) 0%, rgba(13,59,20,0.55) 50%, rgba(6,18,9,0.80) 100%);
+}
+
+/* Mesh gradient background — kept for subtle depth, now on z-index:1 */
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 0%, rgba(46,160,67,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 90% 100%, rgba(21,92,30,0.22) 0%, transparent 60%);
 }
 
 /* Animated diagonal light beam */
@@ -179,6 +196,7 @@ nav{
   transform:rotate(25deg);
   animation:beam-slide 8s ease-in-out infinite;
   pointer-events:none;
+  z-index:2;
 }
 .hero-beam:nth-child(1){left:25%;animation-delay:0s}
 .hero-beam:nth-child(2){left:55%;animation-delay:-3s;opacity:0.5}
@@ -190,13 +208,13 @@ nav{
 
 /* Dot grid */
 .hero-dots{
-  position:absolute;inset:0;pointer-events:none;
+  position:absolute;inset:0;pointer-events:none;z-index:2;
   background-image:radial-gradient(circle,rgba(184,244,74,0.07) 1px,transparent 1px);
   background-size:32px 32px;
   mask-image:radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
 }
 
-.hero-content{position:relative;z-index:2;max-width:720px;margin:0 auto}
+.hero-content{position:relative;z-index:3;max-width:720px;margin:0 auto}
 
 /* Logo in hero — prominent */
 .hero-logo-ring{
@@ -230,7 +248,28 @@ nav{
 @keyframes fade-down{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fade-up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
 
-/* Tag line above H1 */
+/* Hero text slide transition */
+.hero-slide-text{
+  transition:opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.hero-slide-text.fading{
+  opacity:0;
+  transform:translateY(18px);
+}
+
+/* Slide progress dots */
+.hero-indicators{
+  position:absolute;bottom:90px;left:50%;transform:translateX(-50%);
+  z-index:4;display:flex;gap:8px;
+}
+.hero-dot{
+  width:28px;height:3px;border-radius:2px;
+  background:rgba(255,255,255,0.3);
+  cursor:pointer;transition:background 0.3s,width 0.3s;
+}
+.hero-dot.active{background:var(--spark);width:44px}
+
+/* ══ TAG LINE ABOVE H1 ══ */
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(184,244,74,0.1);
@@ -816,6 +855,7 @@ footer a:hover{color:var(--spark)}
   </a>
   <ul class="nav-links">
     <li><a href="#servicos">Nossos trabalhos</a></li>
+    <li><a href="#tapetes">Tapetes</a></li>
     <li><a href="#diferenciais">NOSSO DIFERENCIAL</a></li>
     <li>
       <a href="https://wa.me/5516992204232" class="nav-cta-btn" target="_blank" rel="noopener">
@@ -832,6 +872,7 @@ footer a:hover{color:var(--spark)}
 <!-- Mobile Menu -->
 <div class="nav-mobile" id="mob-menu">
   <a href="#servicos" class="mob-link">Serviços</a>
+  <a href="#tapetes" class="mob-link">Tapetes</a>
   <a href="#resultados" class="mob-link">Resultados</a>
   <a href="#diferenciais" class="mob-link">Por que nós</a>
   <a href="https://wa.me/5516992204232" class="mob-cta" target="_blank" rel="noopener">💬 Pedir Orçamento Grátis</a>
@@ -839,6 +880,16 @@ footer a:hover{color:var(--spark)}
 
 <!-- ══ HERO ══ -->
 <section class="hero" id="inicio">
+  <!-- Slideshow background images -->
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781102970/Sofa_qxx1nx.png')"></div>
+    <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781102723/impermeabilizacao_g8qyor.webp')"></div>
+    <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781102969/Tapete_excydm.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781102970/colcha%CC%83o_jt7wfc.webp')"></div>
+    <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781102970/Poltrona_hgaw1d.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781102970/Cadeira_wouna1.jpg')"></div>
+  </div>
+  <div class="hero-overlay"></div>
   <div class="hero-bg"></div>
   <div class="hero-dots"></div>
   <div class="hero-beam"></div>
@@ -846,11 +897,11 @@ footer a:hover{color:var(--spark)}
   <div class="hero-beam"></div>
 
   <div class="hero-content">
-    <!-- Logo — prominent ring -->
-
-    <h1>ESTOFADOS<br><em>COMO</em> <span class="solid">NOVOS</span></h1>
-
-    <p class="hero-sub">Higienização e impermeabilização de estofados em geral, atendimento residencial e corporativo com qualidade, agilidade e segurança.</p>
+    <div class="hero-slide-text" id="hero-text-block">
+      <span class="hero-eyebrow"><span class="eyebrow-dot"></span>RG CLEAN — RIBEIRÃO PRETO E REGIÃO</span>
+      <h1 id="hero-h1">ESTOFADOS<br><em>COMO</em> <span class="solid">NOVOS</span></h1>
+      <p class="hero-sub" id="hero-sub">Higienização e impermeabilização de estofados em geral, atendimento residencial e corporativo com qualidade, agilidade e segurança.</p>
+    </div>
 
     <div class="hero-btns">
       <a href="https://wa.me/5516992204232?text=Olá!%20Gostaria%20de%20um%20orçamento%20para%20higienização." class="btn-wpp" target="_blank" rel="noopener">
@@ -893,6 +944,16 @@ footer a:hover{color:var(--spark)}
       </div>
     </div>
   </div>
+
+  <!-- Slide indicators -->
+  <div class="hero-indicators" id="hero-indicators">
+    <div class="hero-dot active" onclick="goToSlide(0)"></div>
+    <div class="hero-dot" onclick="goToSlide(1)"></div>
+    <div class="hero-dot" onclick="goToSlide(2)"></div>
+    <div class="hero-dot" onclick="goToSlide(3)"></div>
+    <div class="hero-dot" onclick="goToSlide(4)"></div>
+    <div class="hero-dot" onclick="goToSlide(5)"></div>
+  </div>
 </section>
 
 <!-- ══ SERVIÇOS ══ -->
@@ -932,9 +993,11 @@ footer a:hover{color:var(--spark)}
 
 <!-- ══ ANTES E DEPOIS ══ -->
 <section class="resultados" id="resultados">
+  <div id="tapetes" style="position:relative;top:-80px;visibility:hidden"></div>
   <div class="center reveal">
-    <h1 class="sec-eyebrow"> Resultados Reais </h1>
-    <p class="sec-sub">Veja a transformação real dos clientes. Resultados que falam por si.</p>
+    <span class="sec-eyebrow">Antes &amp; Depois</span>
+    <h2 class="sec-title" style="font-size:clamp(3rem,7vw,5.2rem);letter-spacing:-0.01em">Resultados Reais</h2>
+    <p class="sec-sub" style="font-size:1.1rem;max-width:520px;margin:0 auto">Veja a transformação real dos clientes. Resultados que falam por si.</p>
   </div>
 
   <!-- Tab switcher -->
@@ -951,17 +1014,66 @@ footer a:hover{color:var(--spark)}
 
   <!-- TAPETES panel -->
   <div class="ad-panel ad-grid" id="tab-tapetes">
-    <div class="ad-card reveal" style="transition-delay:0.05s">
-      <div class="ad-img-wrap">
-        <img src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1780504806/WhatsApp_Image_2026-06-02_at_12.41.52_2_igcm97.jpg" alt="Tapete antes e depois 1" loading="lazy">
+    <!-- Card 1: Texto sobre o serviço de limpeza -->
+    <div class="ad-card reveal" style="transition-delay:0.05s;aspect-ratio:unset;min-height:280px">
+      <div style="
+        background:linear-gradient(135deg,var(--forest) 0%,var(--mid) 100%);
+        flex:1;display:flex;flex-direction:column;justify-content:center;
+        padding:36px 32px;gap:16px;
+      ">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(184,244,74,0.15);border:1px solid rgba(184,244,74,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="22" height="22" fill="var(--spark)"><use href="#ico-tapete"/></svg>
+          </div>
+          <span style="font-family:'Anton',sans-serif;font-size:1.35rem;color:var(--spark);letter-spacing:0.04em">Lavagem Profissional</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.82);font-size:0.93rem;line-height:1.75">
+          Nosso processo de lavagem para tapetes utiliza equipamentos de alta pressão e produtos específicos aprovados pela ANVISA, removendo sujeira profunda, manchas, pelos de animais e odores incrustados. O tapete é tratado com cuidado para preservar as fibras e cores originais.
+        </p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:4px">
+          <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Remoção de manchas e odores
+          </li>
+          <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Elimina ácaros e bactérias
+          </li>
+          <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Seguro para lã, seda e fibras delicadas
+          </li>
+        </ul>
       </div>
-      <div class="ad-label"><svg><use href="#ico-tapete"/></svg><span>Tapete — higienização completa</span></div>
+      <div class="ad-label"><svg><use href="#ico-tapete"/></svg><span>Tapete — lavagem profissional</span></div>
     </div>
-    <div class="ad-card reveal" style="transition-delay:0.1s">
-      <div class="ad-img-wrap">
-        <img src="https://res.cloudinary.com/dtdomrtyp/image/upload/v1780504806/WhatsApp_Image_2026-06-02_at_12.41.52_3_u4cerk.jpg" alt="Tapete antes e depois 2" loading="lazy">
+    <!-- Card 2: Texto sobre higienização e impermeabilização -->
+    <div class="ad-card reveal" style="transition-delay:0.1s;aspect-ratio:unset;min-height:280px">
+      <div style="
+        background:linear-gradient(135deg,rgba(11,26,13,0.95) 0%,var(--forest) 100%);
+        flex:1;display:flex;flex-direction:column;justify-content:center;
+        padding:36px 32px;gap:16px;
+        border:1px solid rgba(184,244,74,0.12);
+      ">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(184,244,74,0.15);border:1px solid rgba(184,244,74,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="22" height="22" fill="var(--spark)"><use href="#ico-shield"/></svg>
+          </div>
+          <span style="font-family:'Anton',sans-serif;font-size:1.35rem;color:var(--spark);letter-spacing:0.04em">Higienização &amp; Impermeabilização</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.82);font-size:0.93rem;line-height:1.75">
+          Além da limpeza completa, aplicamos impermeabilizante de alta performance que cria uma barreira invisível nas fibras do tapete — protegendo contra líquidos, novas manchas e sujeira por meses. Atendemos tapetes persas, orientais, shaggy, sisal e muito mais.
+        </p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:4px">
+          <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Proteção duradoura contra manchas
+          </li>
+          <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Todos os tipos de tapetes
+          </li>
+          <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Resultado com garantia total
+          </li>
+        </ul>
       </div>
-      <div class="ad-label"><svg><use href="#ico-tapete"/></svg><span>Tapete — remoção de manchas</span></div>
+      <div class="ad-label"><svg><use href="#ico-shield"/></svg><span>Tapete — impermeabilização</span></div>
     </div>
     <div class="ad-card reveal" style="transition-delay:0.15s">
       <div class="ad-img-wrap">
@@ -1170,7 +1282,85 @@ window.addEventListener('scroll', () => {
     : 'rgba(11,26,13,0.82)';
 }, { passive: true });
 
-// ── Counter animation ──
+// ── Hero Slideshow ──
+const heroSlides = document.querySelectorAll('.hero-slide');
+const heroDots = document.querySelectorAll('.hero-dot');
+const heroTextBlock = document.getElementById('hero-text-block');
+const heroH1 = document.getElementById('hero-h1');
+const heroSubEl = document.getElementById('hero-sub');
+
+const slideData = [
+  {
+    h1: 'ESTOFADOS<br><em>COMO</em> <span class="solid">NOVOS</span>',
+    sub: 'Higienização e impermeabilização de estofados em geral, atendimento residencial e corporativo com qualidade, agilidade e segurança.'
+  },
+  {
+    h1: 'IMPERMEABILIZE<br><span class="solid">SEU ESTOFADO</span>',
+    sub: 'Criamos uma barreira invisível contra líquidos e manchas — proteção que dura meses com garantia total.'
+  },
+  {
+    h1: 'TAPETES<br><em>LIMPOS</em> <span class="solid">DE VERDADE</span>',
+    sub: 'Lavagem profissional de tapetes de todos os tipos, removendo manchas, ácaros e odores de forma segura e eficiente.'
+  },
+  {
+    h1: 'DURMA BEM,<br><span class="solid">DURMA LIMPO</span>',
+    sub: 'Higienização de colchões com equipamentos profissionais — elimine ácaros e bactérias enquanto você descansa.'
+  },
+  {
+    h1: 'POLTRONA<br><em>COMO</em> <span class="solid">NOVA</span>',
+    sub: 'Limpeza profunda em poltronas, cadeiras e sofás. Profissional treinado na sua casa, sem bagunça.'
+  },
+  {
+    h1: 'CADEIRAS<br><span class="solid">TRANSFORMADAS</span>',
+    sub: 'De cadeiras de jantar a cadeiras de escritório — restauramos aparência, higiene e conforto do seu mobiliário.'
+  }
+];
+
+let currentSlide = 0;
+let slideInterval;
+
+function goToSlide(index) {
+  // Fade text out
+  heroTextBlock.classList.add('fading');
+
+  // After text fades, swap image + text
+  setTimeout(() => {
+    heroSlides[currentSlide].classList.remove('active');
+    heroDots[currentSlide].classList.remove('active');
+
+    currentSlide = index;
+
+    heroSlides[currentSlide].classList.add('active');
+    heroDots[currentSlide].classList.add('active');
+
+    heroH1.innerHTML = slideData[currentSlide].h1;
+    heroSubEl.textContent = slideData[currentSlide].sub;
+
+    // Fade text back in
+    heroTextBlock.classList.remove('fading');
+  }, 500);
+}
+
+function nextSlide() {
+  const next = (currentSlide + 1) % heroSlides.length;
+  goToSlide(next);
+}
+
+function startSlideshow() {
+  slideInterval = setInterval(nextSlide, 4000);
+}
+
+function stopSlideshow() {
+  clearInterval(slideInterval);
+}
+
+// Pause on hover
+document.querySelector('.hero').addEventListener('mouseenter', stopSlideshow);
+document.querySelector('.hero').addEventListener('mouseleave', startSlideshow);
+
+startSlideshow();
+
+
 function animateCounters() {
   document.querySelectorAll('.stat-num').forEach(el => {
     const text = el.textContent;
