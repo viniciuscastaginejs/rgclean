@@ -1305,12 +1305,10 @@ function goToSlide(index) {
   // After text fades, swap image + text
   setTimeout(() => {
     heroSlides[currentSlide].classList.remove('active');
-    heroDots[currentSlide].classList.remove('active');
 
     currentSlide = index;
 
     heroSlides[currentSlide].classList.add('active');
-    heroDots[currentSlide].classList.add('active');
 
     heroH1.innerHTML = slideData[currentSlide].h1;
     heroSubEl.textContent = slideData[currentSlide].sub;
@@ -1326,7 +1324,7 @@ function nextSlide() {
 }
 
 function startSlideshow() {
-  slideInterval = setInterval(nextSlide, 4000);
+  slideInterval = setInterval(nextSlide, 2500);
 }
 
 function stopSlideshow() {
