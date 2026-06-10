@@ -177,7 +177,7 @@ nav{
 .hero-overlay{
   position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    linear-gradient(180deg, rgba(6,18,9,0.72) 0%, rgba(13,59,20,0.55) 50%, rgba(6,18,9,0.80) 100%);
+    linear-gradient(180deg, rgba(6,18,9,0.85) 0%, rgba(13,59,20,0.72) 50%, rgba(6,18,9,0.90) 100%);
 }
 
 /* Mesh gradient background — kept for subtle depth, now on z-index:1 */
@@ -1297,8 +1297,12 @@ const slideData = [
 
 let currentSlide = 0;
 let slideInterval;
+let isTransitioning = false;
 
 function goToSlide(index) {
+  if (isTransitioning || index === currentSlide) return;
+  isTransitioning = true;
+
   // Fade text out
   heroTextBlock.classList.add('fading');
 
@@ -1315,6 +1319,9 @@ function goToSlide(index) {
 
     // Fade text back in
     heroTextBlock.classList.remove('fading');
+
+    // Libera a próxima transição após a imagem terminar o fade (1.2s)
+    setTimeout(() => { isTransitioning = false; }, 1200);
   }, 500);
 }
 
@@ -1324,16 +1331,18 @@ function nextSlide() {
 }
 
 function startSlideshow() {
-  slideInterval = setInterval(nextSlide, 2500);
+  slideInterval = setInterval(nextSlide, 5000);
 }
 
 function stopSlideshow() {
   clearInterval(slideInterval);
 }
 
-// Pause on hover
-document.querySelector('.hero').addEventListener('mouseenter', stopSlideshow);
-document.querySelector('.hero').addEventListener('mouseleave', startSlideshow);
+// Pausa só quando a aba fica em background
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) stopSlideshow();
+  else startSlideshow();
+});
 
 startSlideshow();
 
