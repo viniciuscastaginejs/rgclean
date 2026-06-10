@@ -102,11 +102,11 @@ nav{
   height:68px;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 5%;
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);
-  border-bottom:1px solid rgba(255,255,255,0.25);
-  box-shadow:0 2px 24px rgba(0,0,0,0.10);
-  transition:background 0.3s,box-shadow 0.3s;
+  background:transparent;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  border-bottom:1px solid transparent;
+  box-shadow:none;
+  transition:background 0.4s,backdrop-filter 0.4s,border-color 0.4s,box-shadow 0.4s;
 }
 .nav-brand{
   display:flex;align-items:center;gap:12px;text-decoration:none;
@@ -147,7 +147,26 @@ nav{
 .nav-cta-btn:hover{transform:scale(1.06);box-shadow:0 0 32px rgba(37,211,102,0.6)!important}
 
 .hamburger{display:none;cursor:pointer;padding:6px;border:none;background:none}
-.hamburger span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px;transition:0.3s}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:0.3s}
+/* Nav scrolled state */
+nav.scrolled{
+  background:rgba(255,255,255,0.90);
+  backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);
+  border-bottom:1px solid rgba(255,255,255,0.30);
+  box-shadow:0 2px 24px rgba(0,0,0,0.10);
+}
+nav.scrolled .nav-brand-name{color:var(--ink)}
+nav.scrolled .nav-brand-name span{color:var(--leaf)}
+nav.scrolled .nav-links li a{color:rgba(11,26,13,0.80)}
+nav.scrolled .nav-links li a:hover{color:var(--leaf);background:rgba(46,160,67,0.10)}
+nav.scrolled .hamburger span{background:var(--ink)}
+/* Nav no topo (sobre hero) — textos brancos */
+nav:not(.scrolled) .nav-brand-name{color:#fff}
+nav:not(.scrolled) .nav-brand-name span{color:var(--spark)}
+nav:not(.scrolled) .nav-links li a{color:rgba(255,255,255,0.85)}
+nav:not(.scrolled) .nav-links li a:hover{color:var(--spark);background:rgba(255,255,255,0.10)}
+nav:not(.scrolled) .hamburger span{background:#fff}
+
 .hamburger span+span{margin-top:5px}
 .nav-mobile{display:none}
 
@@ -190,7 +209,7 @@ nav{
 }
 
 /* Animated diagonal light beam */
-.hero-beam{
+.hero-beam{display:none;
   position:absolute;
   width:2px;height:120%;
   background:linear-gradient(to bottom,transparent,rgba(184,244,74,0.15),transparent);
@@ -883,9 +902,6 @@ footer a:hover{color:var(--spark)}
   <div class="hero-overlay"></div>
   <div class="hero-bg"></div>
   <div class="hero-dots"></div>
-  <div class="hero-beam"></div>
-  <div class="hero-beam"></div>
-  <div class="hero-beam"></div>
 
   <div class="hero-content">
     <div class="hero-slide-text" id="hero-text-block">
@@ -914,7 +930,7 @@ footer a:hover{color:var(--spark)}
         Atendimento em Ribeirão Preto e Região
       </div>
       <div class="pill">
-        <svg><use href="#ico-bolt"/></svg>
+        <svg><use href="#ico-star"/></svg>
         Atendimento 5 Estrelas
       </div>
     </div>
@@ -1256,12 +1272,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 // ── Nav bg on scroll ──
 const nav = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-  nav.style.background = window.scrollY > 60
-    ? 'rgba(255,255,255,0.88)'
-    : 'rgba(255,255,255,0.15)';
-  nav.style.boxShadow = window.scrollY > 60
-    ? '0 2px 32px rgba(0,0,0,0.13)'
-    : '0 2px 24px rgba(0,0,0,0.10)';
+  nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
 // ── Hero Slideshow ──
