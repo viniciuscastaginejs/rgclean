@@ -258,16 +258,6 @@ nav{
 }
 
 /* Slide progress dots */
-.hero-indicators{
-  position:absolute;bottom:90px;left:50%;transform:translateX(-50%);
-  z-index:4;display:flex;gap:8px;
-}
-.hero-dot{
-  width:28px;height:3px;border-radius:2px;
-  background:rgba(255,255,255,0.3);
-  cursor:pointer;transition:background 0.3s,width 0.3s;
-}
-.hero-dot.active{background:var(--spark);width:44px}
 
 /* ══ TAG LINE ABOVE H1 ══ */
 .hero-eyebrow{
@@ -943,16 +933,6 @@ footer a:hover{color:var(--spark)}
         <div class="stat-label">Garantia total</div>
       </div>
     </div>
-  </div>
-
-  <!-- Slide indicators -->
-  <div class="hero-indicators" id="hero-indicators">
-    <div class="hero-dot active" onclick="goToSlide(0)"></div>
-    <div class="hero-dot" onclick="goToSlide(1)"></div>
-    <div class="hero-dot" onclick="goToSlide(2)"></div>
-    <div class="hero-dot" onclick="goToSlide(3)"></div>
-    <div class="hero-dot" onclick="goToSlide(4)"></div>
-    <div class="hero-dot" onclick="goToSlide(5)"></div>
   </div>
 </section>
 
