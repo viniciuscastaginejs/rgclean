@@ -304,6 +304,7 @@ nav:not(.scrolled) .hamburger span{background:#fff}
   -webkit-text-stroke:2px var(--spark);
 }
 .hero h1 .solid{color:var(--spark);-webkit-text-stroke:0}
+.hero h1.compact{font-size:clamp(2rem,6.6vw,4.7rem);line-height:1}
 
 .hero-sub{
   color:rgba(255,255,255,0.7);font-size:clamp(0.95rem,2.2vw,1.1rem);
@@ -892,7 +893,7 @@ footer a:hover{color:var(--spark)}
   <!-- Slideshow background images -->
   <div class="hero-slides">
     <div class="hero-slide active" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781477566/pillow-sofa_1_xsodx4.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781477586/Impermeabilizac%CC%A7a%CC%83o_de_estofado_zlevul.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781479571/ChatGPT_Image_14_de_jun._de_2026_20_25_58_bc6ppx.png')"></div>
     <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781478031/couchs-with-plant-middle-table_f9gmmz.jpg')"></div>
     <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781477690/9f3765a8-5c49-454f-a02d-1398be46f9b2.png')"></div>
     <div class="hero-slide" style="background-image:url('https://res.cloudinary.com/dtdomrtyp/image/upload/v1781477729/8cddfc7e-1ed2-48ec-99f9-d1a3d4761a0b.png')"></div>
@@ -1287,7 +1288,8 @@ const slideData = [
   },
   {
     h1: 'IMPERMEABILIZAÇÃO<br><span class="solid">MAIS PROTEÇÃO</span>',
-    sub: 'Seu estofado recebe uma tecnologia que cria uma camada fina, sem mudar a textura e a cor, tornando-o mais protegido de líquidos, sujidades, manchas e acúmulo de bactérias e ácaros — trazendo mais vida útil para o seu estofado.'
+    sub: 'Seu estofado recebe uma tecnologia que cria uma camada fina, sem mudar a textura e a cor, tornando-o mais protegido de líquidos, sujidades, manchas e acúmulo de bactérias e ácaros — trazendo mais vida útil para o seu estofado.',
+    compact: true
   },
   {
     h1: 'CADEIRAS E<br><span class="solid">POLTRONAS</span>',
@@ -1323,6 +1325,7 @@ function goToSlide(index) {
     heroSlides[currentSlide].classList.add('active');
 
     heroH1.innerHTML = slideData[currentSlide].h1;
+    heroH1.classList.toggle('compact', !!slideData[currentSlide].compact);
     heroSubEl.textContent = slideData[currentSlide].sub;
 
     // Fade text back in
