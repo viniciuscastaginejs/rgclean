@@ -867,7 +867,7 @@ footer a:hover{color:var(--spark)}
   <ul class="nav-links">
     <li><a href="#servicos">Nossos trabalhos</a></li>
     <li><a href="#diferenciais">Nosso Diferencial</a></li>
-    <li><a href="#tapetes">Tapetes</a></li>
+    <li><a href="#tapetes" onclick="switchTab('tapetes')">Tapetes</a></li>
     <li>
       <a href="https://wa.me/5516992204232" class="nav-cta-btn" target="_blank" rel="noopener">
         <svg width="14" height="14" fill="white"><use href="#ico-wpp"/></svg>
@@ -884,7 +884,7 @@ footer a:hover{color:var(--spark)}
 <div class="nav-mobile" id="mob-menu">
   <a href="#servicos" class="mob-link">Nossos Trabalhos</a>
   <a href="#diferenciais" class="mob-link">Nosso Diferencial</a>
-  <a href="#tapetes" class="mob-link">Tapetes</a>
+  <a href="#tapetes" class="mob-link" onclick="switchTab('tapetes')">Tapetes</a>
   <a href="https://wa.me/5516992204232" class="mob-cta" target="_blank" rel="noopener">💬 Pedir Orçamento Grátis</a>
 </div>
 
@@ -991,8 +991,8 @@ footer a:hover{color:var(--spark)}
 <section class="resultados" id="resultados">
   <div id="tapetes" style="position:relative;top:-80px;visibility:hidden"></div>
   <div class="center reveal">
-    <h2 class="sec-title" style="font-size:clamp(3rem,7vw,5.2rem);letter-spacing:-0.01em">Soluções para Seu Ambiente</h2>
-    <p class="sec-sub" style="font-size:1.1rem;max-width:520px;margin:0 auto">Seja em ambientes residenciais ou corporativos, buscamos proporcionar uma renovação completa através da limpeza, higienização e impermeabilização dos seus estofados, devolvendo mais conforto, bem-estar e a sensação de um ambiente novo para você e sua família.
+    <h2 class="sec-title" id="resultados-titulo" style="font-size:clamp(3rem,7vw,5.2rem);letter-spacing:-0.01em">Soluções para Seu Ambiente</h2>
+    <p class="sec-sub" id="resultados-sub" style="font-size:1.1rem;max-width:520px;margin:0 auto">Seja em ambientes residenciais ou corporativos, buscamos proporcionar uma renovação completa através da limpeza, higienização e impermeabilização dos seus estofados, devolvendo mais conforto, bem-estar e a sensação de um ambiente novo para você e sua família.
   </div>
 
   <!-- Tab switcher -->
@@ -1020,14 +1020,14 @@ footer a:hover{color:var(--spark)}
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(184,244,74,0.15);border:1px solid rgba(184,244,74,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
             <svg width="22" height="22" fill="var(--spark)"><use href="#ico-tapete"/></svg>
           </div>
-          <span style="font-family:'Anton',sans-serif;font-size:1.35rem;color:var(--spark);letter-spacing:0.04em">Lavagem Profissional</span>
+          <span style="font-family:'Anton',sans-serif;font-size:1.35rem;color:var(--spark);letter-spacing:0.04em">Lavagem Profissional e Higienização</span>
         </div>
         <p style="color:rgba(255,255,255,0.82);font-size:0.93rem;line-height:1.75">
-          Nosso processo de lavagem para tapetes utiliza equipamentos de alta pressão e produtos específicos aprovados pela ANVISA, removendo sujeira profunda, manchas, pelos de animais e odores incrustados. O tapete é tratado com cuidado para preservar as fibras e cores originais.
+          Nosso processo de lavagem para tapetes utiliza equipamentos de alta pressão e produtos específicos para remoção de sujeira profunda, manchas (sob analise), pelos de animais e odores. Nosso processo é feito para atingir o melhor resultado.
         </p>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:4px">
           <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Remoção de manchas e odores
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Remoção de manchas (sob analise) e odores
           </li>
           <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
             <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Elimina ácaros e bactérias
@@ -1051,20 +1051,20 @@ footer a:hover{color:var(--spark)}
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(184,244,74,0.15);border:1px solid rgba(184,244,74,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
             <svg width="22" height="22" fill="var(--spark)"><use href="#ico-shield"/></svg>
           </div>
-          <span style="font-family:'Anton',sans-serif;font-size:1.35rem;color:var(--spark);letter-spacing:0.04em">Higienização &amp; Impermeabilização</span>
+          <span style="font-family:'Anton',sans-serif;font-size:1.35rem;color:var(--spark);letter-spacing:0.04em">Impermeabilização</span>
         </div>
         <p style="color:rgba(255,255,255,0.82);font-size:0.93rem;line-height:1.75">
-          Além da limpeza completa, aplicamos impermeabilizante de alta performance que cria uma barreira invisível nas fibras do tapete — protegendo contra líquidos, novas manchas e sujeira por meses. Atendemos tapetes persas, orientais, shaggy, sisal e muito mais.
+          Além da limpeza completa, aplicamos impermeabilizante de alta performance que cria uma barreira invisível no seu tapete, tornando seu tapete mais protegido e evitando sujidade.
         </p>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:4px">
           <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Proteção duradoura contra manchas
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Proteção do dia a dia
           </li>
           <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Todos os tipos de tapetes
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Evita ácaros e bactérias
           </li>
           <li style="display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.7);font-size:0.83rem">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Resultado com garantia total
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--spark);flex-shrink:0"></span>Prolongamento vida útil
           </li>
         </ul>
       </div>
@@ -1244,6 +1244,14 @@ function switchTab(tab) {
   document.querySelectorAll('.ad-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
   document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+  // Troca o título conforme a aba
+  const titulo = document.getElementById('resultados-titulo');
+  if (titulo) titulo.textContent = (tab === 'tapetes') ? 'Tapetes' : 'Soluções para Seu Ambiente';
+  // Troca a descrição conforme a aba
+  const sub = document.getElementById('resultados-sub');
+  if (sub) sub.textContent = (tab === 'tapetes')
+    ? 'Cada tapete recebe uma análise técnica antes da lavagem, assegurando o processo mais adequado para preservar suas características, limpeza e realçar sua aparência. '
+    : 'Seja em ambientes residenciais ou corporativos, buscamos proporcionar uma renovação completa através da limpeza, higienização e impermeabilização dos seus estofados, devolvendo mais conforto, bem-estar e a sensação de um ambiente novo para você e sua família.';
   // Re-trigger reveal for newly visible cards
   document.querySelectorAll('#tab-' + tab + ' .reveal:not(.visible)').forEach(el => io.observe(el));
 }
